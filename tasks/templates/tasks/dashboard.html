@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}داشبورد مدیریتی{% endblock %}
+
+{% block content %}
+<div class="p-8">
+    <div class="max-w-7xl mx-auto">
+        <div class="mb-8 text-center md:text-right">
+            <h1 class="text-3xl font-extrabold text-gray-900">وضعیت کلی <span class="text-rose-600">پروژه</span></h1>
+        </div>
+
+        <!-- کارت‌های آمار -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border-b-4 border-blue-500">
+                <p class="text-sm font-medium text-gray-500">کل وظایف</p>
+                <h2 class="text-3xl font-bold">{{ total_tasks }}</h2>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-sm border-b-4 border-rose-500">
+                <p class="text-sm font-medium text-gray-500">در انتظار</p>
+                <h2 class="text-3xl font-bold text-rose-600">{{ todo_count }}</h2>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-sm border-b-4 border-amber-500">
+                <p class="text-sm font-medium text-gray-500">در حال انجام</p>
+                <h2 class="text-3xl font-bold text-amber-600">{{ doing_count }}</h2>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-sm border-b-4 border-emerald-500">
+                <p class="text-sm font-medium text-gray-500">تکمیل شده</p>
+                <h2 class="text-3xl font-bold text-emerald-600">{{ done_count }}</h2>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 bg-white p-8 rounded-2xl shadow-sm">
+                <h3 class="text-lg font-bold mb-6">پیشرفت پروژه: {{ progress }}%</h3>
+                <div class="w-full bg-gray-200 rounded-full h-4">
+                    <div class="bg-emerald-500 h-4 rounded-full transition-all duration-1000" style="width: {{ progress }}%"></div>
+                </div>
+            </div>
+
+            <div class="bg-white p-8 rounded-2xl shadow-sm">
+                <h3 class="text-lg font-bold mb-6">توزیع وظایف</h3>
+                <div class="space-y-4">
+                    {% for item in tasks_by_user %}
+                    <div class="flex justify-between p-3 bg-gray-50 rounded-xl">
+                        <span>{{ item.assigned_to__username|default:"بدون مسئول" }}</span>
+                        <span class="font-bold">{{ item.total }} تسک</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

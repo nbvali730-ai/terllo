@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}سیستم مدیریت ترلو{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Vazirmatn', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+    <!-- Navbar اصلی -->
+    <nav class="bg-white shadow-sm border-b border-gray-200 mb-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+
+                <!-- سمت راست: لوگو و لینک‌های اصلی -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <span class="text-2xl font-black text-rose-600 tracking-tighter">TERLLO</span>
+                    </div>
+                    <div class="hidden md:mr-8 md:flex md:space-x-reverse md:space-x-4">
+                        <a href="{% url 'board' %}" class="text-gray-600 hover:text-rose-600 px-3 py-2 text-sm font-bold transition-colors">میز کار</a>
+
+                        {% if user.profile.role == 'admin' %}
+                            <a href="{% url 'dashboard' %}" class="text-gray-600 hover:text-rose-600 px-3 py-2 text-sm font-bold transition-colors">داشبورد مدیریتی</a>
+                            <a href="{% url 'register' %}" class="text-gray-600 hover:text-rose-600 px-3 py-2 text-sm font-bold transition-colors">ثبت کارمند</a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- سمت چپ: پروفایل و دکمه خروج -->
+                <div class="flex items-center gap-4">
+                    {% if user.is_authenticated %}
+                        <div class="hidden sm:flex flex-col items-end">
+                            <span class="text-xs font-bold text-gray-900">{{ user.username }}</span>
+                            <span class="text-[10px] text-gray-500 bg-gray-100 px-2 rounded-full">{{ user.profile.get_role_display }}</span>
+                        </div>
+
+                        {% if user.profile.role == 'admin' %}
+                            <a href="{% url 'create_task' %}" class="bg-rose-600 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-rose-700 transition-all shadow-md shadow-rose-200">
+                                + تسک جدید
+                            </a>
+                        {% endif %}
+
+                        <form action="{% url 'logout' %}" method="post" class="inline">
+                            {% csrf_token %}
+                            <button type="submit" class="p-2 text-gray-400 hover:text-rose-600 transition-colors" title="خروج از سیستم">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                                </svg>
+                            </button>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- محتوای اصلی صفحات -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <footer class="mt-12 py-6 text-center text-gray-400 text-xs">
+        سیستم مدیریت وظایف ترلو &copy; ۲۰۲۶
+    </footer>
+
+</body>
+</html>

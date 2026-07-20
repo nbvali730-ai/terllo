@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ثبت‌نام سازمانی</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <style>
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+            /* پس‌زمینه مات و ملایم برای جلوگیری از خیرگی چشم */
+            background-color: #f1f5f9;
+        }
+
+        .bg-corporate-red { background-color: #e11d48; }
+        .text-corporate-red { color: #e11d48; }
+
+        /* کارت اصلی با نوار قرمز بالا */
+        .custom-card {
+            background: #ffffff;
+            border-radius: 2rem;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden; /* برای اینکه نوار قرمز از گوشه‌ها بیرون نزند */
+            border-top: 6px solid #e11d48; /* همان نوار قرمزی که گفتی */
+        }
+
+        input, select {
+            width: 100% !important;
+            padding: 12px 16px !important;
+            border: 1px solid #e2e8f0 !important;
+            border-radius: 12px !important;
+            background-color: #f8fafc !important; /* فیلدها کمی تیره‌تر از بدنه */
+            transition: all 0.2s ease !important;
+        }
+
+        input:focus, select:focus {
+            background-color: #ffffff !important;
+            border-color: #e11d48 !important;
+            box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.1) !important;
+            outline: none !important;
+        }
+
+        label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 6px;
+            margin-right: 4px;
+        }
+
+        .btn-submit {
+            background: #e11d48;
+            color: white;
+            font-weight: bold;
+            padding: 1rem;
+            border-radius: 12px;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(225, 29, 72, 0.2);
+        }
+
+        .btn-submit:hover {
+            background: #be123c;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 15px rgba(225, 29, 72, 0.3);
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-6">
+
+    <div class="w-full max-w-md custom-card p-10">
+        <!-- هدر -->
+        <div class="text-center mb-10">
+            <h2 class="text-2xl font-black text-slate-800">ثبت‌نام کاربر</h2>
+            <p class="text-slate-400 text-sm mt-2 font-medium">سیستم مدیریت وظایف سازمانی</p>
+        </div>
+
+        <form method="post" class="space-y-5">
+            {% csrf_token %}
+
+            {% for field in form %}
+            <div>
+                <label>{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <p class="text-red-500 text-[10px] mt-1 font-bold">{{ field.errors.0 }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <div class="pt-6">
+                <button type="submit" class="btn-submit">
+                    تایید و ایجاد حساب کاربر
+                </button>
+            </div>
+        </form>
+
+        <div class="mt-8 text-center pt-6 border-t border-slate-50">
+            <a href="{% url 'board' %}" class="text-slate-400 hover:text-rose-600 text-sm transition-colors inline-flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                <span>بازگشت به داشبورد</span>
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>

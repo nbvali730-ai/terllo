@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>ثبت وظیفه جدید | ترلو</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+    <style>
+        body { font-family: 'Vazirmatn', sans-serif; background-color: #f1f5f9; }
+        .custom-card {
+            background: white; border-radius: 2rem; border-top: 6px solid #e11d48;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+        /* استایل دادن به فیلدهای پیش‌فرض جنگو */
+        input, select, textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            background-color: #f8fafc;
+            outline: none;
+            transition: all 0.2s;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #e11d48;
+            box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.1);
+            background-color: white;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-6">
+    <div class="w-full max-w-lg custom-card p-10">
+        <div class="text-center mb-8">
+            <h2 class="text-3xl font-black text-slate-800">تعریف مأموریت</h2>
+            <p class="text-slate-500 text-sm mt-2">جزئیات وظیفه جدید را وارد کنید</p>
+        </div>
+
+        <form method="post" class="space-y-5">
+            {% csrf_token %}
+
+            {% for field in form %}
+            <div class="space-y-1">
+                <label class="block text-sm font-bold text-slate-700 mr-1">
+                    {{ field.label }}
+                </label>
+                {{ field }}
+                {% if field.errors %}
+                    {% for error in field.errors %}
+                        <p class="text-rose-500 text-xs mt-1 mr-1">{{ error }}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <div class="pt-4">
+                <button type="submit" class="w-full bg-rose-600 hover:bg-rose-700 text-white font-bold py-4 rounded-2xl shadow-lg shadow-rose-200 transition-all active:scale-95">
+                    ثبت و ابلاغ وظیفه
+                </button>
+            </div>
+        </form>
+
+        <div class="mt-8 text-center border-t border-slate-100 pt-6">
+            <a href="{% url 'board' %}" class="flex items-center justify-center gap-2 text-slate-400 hover:text-rose-600 font-medium transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                انصراف و بازگشت به میز کار
+            </a>
+        </div>
+    </div>
+</body>
+</html>
