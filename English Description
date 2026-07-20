@@ -1,0 +1,61 @@
+# Terllo 📋
+
+**Terllo** is a Trello-style task management system, fully built with a Persian (Farsi) right-to-left interface. It's designed for companies and teams to simplify assigning, tracking, and managing employee tasks.
+
+## ✨ Features
+
+- 🔐 **User registration and login** with a custom authentication system
+- 📊 **Manager dashboard** to view the overall status of all tasks
+- ✅ **Task assignment** — managers can assign tasks to specific employees
+- 📈 **Progress tracking** — managers can see what percentage of tasks are completed
+- 🎯 **Task board** with drag-and-hold status changes, complete with smooth animations
+- 🌐 Fully **Persian (RTL)** user interface, fully customizable
+- ⚙️ Every part of the site's design and layout can be modified
+
+## 🛠️ Tech Stack
+
+- **Backend:** Django (Python)
+- **Frontend:** HTML, CSS, JavaScript
+- **Database:** SQLite
+
+## 🚀 Getting Started
+
+1. Clone the repository:
+```bash
+git clone https://github.com/nbvali730-ai/terllo.git
+cd terllo
+```
+
+2. Create and activate a virtual environment:
+```bash
+python -m venv .venv
+.venv\Scripts\activate
+```
+
+3. Install the dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+4. Run database migrations:
+```bash
+python manage.py migrate
+```
+
+5. Start the development server:
+```bash
+python manage.py runserver
+```
+
+The project will then be available at:
+```
+http://127.0.0.1:8000/
+```
+
+## 📌 Roadmap
+
+- [ ] Further improvements to the admin/manager panel
+
+---
+
+Made with ❤️ by Ali Nabavi
